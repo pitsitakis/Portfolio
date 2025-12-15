@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitsi Portfolio</title>
+
+    <style>
+        /* === GLOBAL RESET === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            text-align: center;
+            padding-top: 60px; /* space for fixed header */
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* === HEADER STYLES === */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            padding: 0 20px;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        header h1 a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0;
+            border: none;
+            transition: color 0.3s;
+        }
+
+        header h1 a:hover {
+            color: #ccc;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header nav a:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* === IMAGE STYLES === */
+        img {
+            display: block;
+            width: 100vw;
+            height: auto;
+            margin: 0;
+            border: none;
+        }
+
+        /* === HIGHLIGHT EFFECT (FIRST 3 + LAST IMAGE) === */
+        img.highlight {
+            transform: scale(1);
+            transition: transform 0.5s ease, opacity 1s ease;
+            opacity: 0; /* hidden initially */
+        }
+
+        img.highlight:hover {
+            transform: scale(1.02);
+        }
+
+        img.highlight.fade-in {
+            opacity: 1;
+        }
+
+        /* === RESPONSIVE HEADER === */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 16px;
+            }
+            header nav a {
+                padding: 4px 8px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="index.html">Pitsi</a></h1>
+        <nav>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pitsitakisnikos@gmail.com&su=Portfolio%20Contact&body=Hi%20Pitsi," target="_blank">
+                Contact
+            </a>
+        </nav>
+    </header>
+
+    <!-- Portfolio Images -->
+    <img src="1.jpg" loading="eager" alt="Portfolio Image 1" class="highlight">
+    <img src="2.jpg" loading="lazy" alt="Portfolio Image 2" class="highlight">
+    <img src="3.jpg" loading="lazy" alt="Portfolio Image 3" class="highlight">
+    <img src="4.jpg" loading="lazy" alt="Portfolio Image 4">
+    <img src="5.jpg" loading="lazy" alt="Portfolio Image 5">
+    <img src="6.jpg" loading="lazy" alt="Portfolio Image 6">
+    <img src="7.jpg" loading="lazy" alt="Portfolio Image 7">
+    <img src="8.jpg" loading="lazy" alt="Portfolio Image 8">
+    <img src="9.jpg" loading="lazy" alt="Portfolio Image 9">
+    <img src="10.jpg" loading="lazy" alt="Portfolio Image 10">
+    <img src="11.jpg" loading="lazy" alt="Portfolio Image 11">
+    <img src="12.jpg" loading="lazy" alt="Portfolio Image 12">
+    <img src="13.jpg" loading="lazy" alt="Portfolio Image 13">
+    <img src="14.jpg" loading="lazy" alt="Portfolio Image 14">
+    <img src="15.jpg" loading="lazy" alt="Portfolio Image 15" class="highlight">
+
+    <script>
+        // === FADE-IN ON SCROLL WITH STAGGER FOR FIRST 3 + LAST ===
+        const images = document.querySelectorAll('img.highlight');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(images).indexOf(entry.target);
+
+                    // Add stagger delay for first 3 images
+                    if (index <= 2) {
+                        setTimeout(() => {
+                            entry.target.classList.add('fade-in');
+                        }, index * 300); // 0ms, 300ms, 600ms
+                    } else {
+                        entry.target.classList.add('fade-in'); // last image fades normally
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+
+        images.forEach(img => observer.observe(img));
+    </script>
+
+</body>
+</html>
+
